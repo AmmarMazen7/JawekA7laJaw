@@ -1,6 +1,6 @@
 'use client'
 
-import { BarChart3, Users, Video, Zap } from 'lucide-react'
+import { BarChart3, Users, Video, Zap, Radio, Camera } from 'lucide-react'
 import Link from 'next/link'
 
 interface SidebarProps {
@@ -12,6 +12,8 @@ export function Sidebar({ currentPage, onPageChange }: SidebarProps) {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'video-zone', label: 'Zone Configuration', icon: Video },
+    { id: 'cctv-cameras', label: 'CCTV Cameras', icon: Camera },
+    { id: 'live-stream', label: 'Live Stream', icon: Radio },
     { id: 'employees', label: 'Employee Management', icon: Users },
   ]
 

@@ -185,6 +185,10 @@ export function VideoUploadPage() {
       console.log('Sending zones to API:', zonesForApi)
       console.log('Zones structure:', JSON.stringify(zonesForApi, null, 2))
 
+      // Save zones to localStorage for live stream use
+      localStorage.setItem('currentZones', JSON.stringify(zonesForApi))
+      localStorage.setItem('currentVideoId', videoInfo.video_id)
+
       // Simulate progress during analysis
       setProgress(10)
       setProgressMessage('Loading YOLO model...')
