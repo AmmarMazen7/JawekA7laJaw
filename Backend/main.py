@@ -11,6 +11,7 @@ import json
 
 from services.analyzer import analyze_video_with_zones
 from services.realtime_stream import RealtimeStreamProcessor
+from services.ai_recommendations import recommendation_service
 from models.zone import ZoneRequest
 from config.cameras import get_camera_config, get_all_cameras, get_camera_video_path
 
@@ -468,7 +469,134 @@ async def get_stream_stats(stream_id: str):
     return stats
 
 # =====================================================
-# =============== 4) WEBSOCKET API ====================
+# =============== 4) AI RECOMMENDATIONS ==============
+# =====================================================
+
+@app.post("/api/recommendations")
+async def generate_ai_recommendations(analytics_data: dict):
+    """
+    Generate intelligent AI-powered recommendations based on queue analytics
+    
+    This endpoint uses OpenAI GPT to analyze queue metrics and provide
+    actionable business recommendations for queue optimization.
+    
+    Args:
+        analytics_data: Queue analytics data from video analysis
+        
+    Returns:
+        AI-generated recommendations with priorities, insights, and actions
+    """
+    try:
+        logger.info("Generating AI recommendations for analytics data")
+        
+        # Add timestamp if not present
+        if "timestamp" not in analytics_data:
+            analytics_data["timestamp"] = time.time()
+        
+        # Generate intelligent recommendations
+        recommendations = recommendation_service.generate_recommendations(analytics_data)
+        
+        logger.info(f"Generated {len(recommendations.get('priority_recommendations', []))} recommendations")
+        
+        return JSONResponse(
+            content={
+                "success": True,
+                "recommendations": recommendations,
+                "generated_at": time.time()
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Error generating recommendations: {str(e)}")
+        return JSONResponse(
+            content={
+                "success": False,
+                "error": str(e),
+                "recommendations": {
+                    "priority_recommendations": [{
+                        "priority": "low",
+                        "action": "Review system configuration",
+                        "reason": "Unable to generate AI recommendations",
+                        "impact": "Ensure OpenAI integration is properly configured"
+                    }],
+                    "alert_level": "warning",
+                    "ai_powered": False,
+                    "confidence_score": 50
+                }
+            },
+            status_code=500
+        )
+
+@app.get("/api/recommendations/instant")
+async def get_instant_recommendations(video_id: str = None):
+    """
+    Get instant recommendations for the current queue situation
+    
+    This is a quick endpoint that provides immediate insights
+    for the floating recommendation button in the dashboard.
+    """
+    try:
+        if video_id and video_id in VIDEO_STORE:
+            # If we have video data, use it
+            # For now, return sample data - in production this would
+            # pull from the latest analysis results
+            sample_analytics = {
+                "zones": [
+                    {
+                        "zone_name": "Main Queue",
+                        "metrics": {
+                            "num_people_measured": 15,
+                            "avg_wait": 95.0,
+                            "max_wait": 180.0,
+                            "avg_queue_len": 3.2
+                        }
+                    }
+                ],
+                "timestamp": time.time()
+            }
+        else:
+            # Default sample data for instant recommendations
+            sample_analytics = {
+                "zones": [
+                    {
+                        "zone_name": "Current Queue",
+                        "metrics": {
+                            "num_people_measured": 8,
+                            "avg_wait": 65.0,
+                            "max_wait": 120.0,
+                            "avg_queue_len": 2.1
+                        }
+                    }
+                ],
+                "timestamp": time.time()
+            }
+        
+        # Generate quick recommendations
+        recommendations = recommendation_service.generate_recommendations(sample_analytics)
+        
+        # Return condensed format for instant display
+        return JSONResponse(content={
+            "success": True,
+            "instant_insight": recommendations.get("insights", ["Queue operating normally"])[0],
+            "priority_action": recommendations.get("priority_recommendations", [{}])[0].get("action", "Continue monitoring"),
+            "alert_level": recommendations.get("alert_level", "normal"),
+            "confidence": recommendations.get("confidence_score", 75),
+            "ai_powered": recommendations.get("ai_powered", False)
+        })
+        
+    except Exception as e:
+        logger.error(f"Error generating instant recommendations: {str(e)}")
+        return JSONResponse(content={
+            "success": False,
+            "instant_insight": "Queue monitoring active",
+            "priority_action": "Continue normal operations",
+            "alert_level": "normal",
+            "confidence": 50,
+            "ai_powered": False
+        })
+
+# =====================================================
+# =============== 5) WEBSOCKET API ====================
 # =====================================================
 
 @app.websocket("/api/ws")

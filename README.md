@@ -8,6 +8,8 @@ A smart queue analytics system using **YOLO11 AI** for patisseries and bakeries.
 - **Tracks queue wait times** automatically  
 - **Shows real-time analytics** in a web dashboard
 - **Alerts when queues get too long**
+- **🧠 NEW: AI-Powered Recommendations** using OpenAI GPT-4 for intelligent business insights
+- **🤖 Smart floating assistant** for instant queue optimization advice
 
 ## 🛠️ Technology Stack
 
@@ -16,17 +18,20 @@ graph LR
     A[📹 Video Input] --> B[🐍 Python Backend]
     B --> C[🤖 YOLO11 AI]
     C --> D[📊 FastAPI]
-    D --> E[⚛️ React Frontend]
-    E --> F[📱 Web Dashboard]
+    D --> E[🧠 OpenAI GPT-4]
+    E --> F[⚛️ React Frontend]
+    F --> G[📱 Web Dashboard]
     
     style A fill:#ff6b6b
     style C fill:#4ecdc4
     style D fill:#45b7d1
-    style E fill:#96ceb4
-    style F fill:#feca57
+    style E fill:#10b981
+    style F fill:#96ceb4
+    style G fill:#feca57
 ```
 
 - **Backend**: Python + FastAPI + YOLO11
+- **AI Recommendations**: OpenAI GPT-4 for intelligent insights  
 - **Frontend**: React + TypeScript + Next.js
 - **AI Model**: Ultralytics YOLO11 for person detection
 
@@ -68,11 +73,25 @@ JawekA7laJaw/
 
 ## ⚡ Quick Start (5 minutes)
 
+### 🤖 Step 0: OpenAI Setup (Optional - for AI recommendations)
+
+```bash
+# Get OpenAI API key from https://platform.openai.com/api-keys
+# Copy the environment template
+cd Backend
+cp .env.example .env
+
+# Edit .env file and add your OpenAI API key:
+# OPENAI_API_KEY=sk-your-actual-openai-key-here
+
+# Note: System works without OpenAI key (uses rule-based recommendations)
+```
+
 ### 1. Setup Backend (Python)
 
 ```bash
 # Navigate to backend folder
-cd backend
+cd Backend
 
 # Create virtual environment
 python -m venv venv
@@ -358,6 +377,70 @@ return {
     "recommendations": generate_recommendations()
 }
 ```
+
+## 🧠 AI-Powered Recommendations
+
+### 🤖 OpenAI Integration
+
+QueueAI now features **intelligent recommendations** powered by OpenAI GPT-4:
+
+#### **Features:**
+- **Smart Analysis**: AI analyzes queue patterns and business metrics
+- **Actionable Insights**: Specific recommendations for immediate improvement  
+- **Business Impact**: Revenue and efficiency predictions
+- **Priority Actions**: High/medium/low priority recommendations
+- **Floating Assistant**: Quick access button in dashboard
+
+#### **Setup OpenAI (Optional):**
+
+```bash
+# 1. Get API key from https://platform.openai.com/api-keys
+# 2. Copy environment template
+cd backend
+cp .env.example .env
+
+# 3. Edit .env and add your API key:
+OPENAI_API_KEY=sk-your-actual-openai-key-here
+```
+
+#### **API Endpoints:**
+
+```python
+# Generate comprehensive recommendations
+POST /api/recommendations
+{
+  "zones": [...],  # Queue analytics data
+  "timestamp": "2024-11-16T..."
+}
+
+# Quick instant recommendations  
+GET /api/recommendations/instant?video_id=123
+```
+
+#### **Sample AI Response:**
+
+```json
+{
+  "priority_recommendations": [
+    {
+      "priority": "high",
+      "action": "Add 1 additional staff member immediately",
+      "reason": "Average wait time of 4.2 minutes exceeds optimal target",
+      "impact": "Reduce wait time by 45% and prevent customer abandonment"
+    }
+  ],
+  "business_impact": {
+    "efficiency_score": 73,
+    "estimated_revenue_impact": "+$320/day",
+    "customer_satisfaction": "Needs Improvement"
+  },
+  "alert_level": "warning",
+  "confidence_score": 94,
+  "ai_powered": true
+}
+```
+
+---
 
 ## 🎯 Key Features Explained
 

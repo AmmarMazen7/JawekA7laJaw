@@ -1,2 +1,6 @@
 venv/
 frontend/node_modules/
+Backend/.env
+backend/.env
+*.env
+!.env.example
