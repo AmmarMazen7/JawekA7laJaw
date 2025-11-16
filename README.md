@@ -1,6 +1,64 @@
 # 🎂 QueueAI - Simple Setup Guide
 
-A smart queue analytics system using **YOLO11 AI** for patisseries and bakeries.
+<div align="center">
+
+**A smart queue analytics system using YOLO11 AI for patisseries and bakeries.**
+
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-18+-61dafb.svg)](https://reactjs.org/)
+[![YOLO](https://img.shields.io/badge/YOLO-v11-orange.svg)](https://github.com/ultralytics/ultralytics)
+
+</div>
+
+---
+
+## 📑 Table of Contents
+
+### 🚀 Getting Started
+- [What This Does](#-what-this-does)
+- [Technology Stack](#️-technology-stack)
+- [Project Structure](#-project-structure)
+- [Quick Start (5 minutes)](#-quick-start-5-minutes)
+  - [Setup Backend (Python)](#1-setup-backend-python)
+  - [Setup Frontend (React)](#2-setup-frontend-react)
+
+### 💻 Technical Documentation
+- [Python Code Explanation](#-python-code-explanation)
+  - [Core AI Detection Function](#core-ai-detection-function)
+  - [FastAPI Server Structure](#fastapi-server-structure)
+  - [Timer System (FPS-based)](#timer-system-fps-based)
+- [How It Works](#-how-it-works)
+  - [Video Upload](#1-video-upload)
+  - [Zone Definition](#2-zone-definition)
+  - [AI Analysis](#3-ai-analysis)
+  - [Real-time Dashboard](#4-real-time-dashboard)
+
+### 🎯 Features & Implementation
+- [Key Features Explained](#-key-features-explained)
+  - [Multi-Zone Polygon Detection](#multi-zone-polygon-detection)
+  - [Person Tracking Across Frames](#person-tracking-across-frames)
+  - [Wait Time Calculation](#wait-time-calculation)
+- [Alert System Logic](#-alert-system-logic)
+- [Business Metrics Calculation](#-business-metrics-calculation)
+
+### ⚙️ Configuration & Usage
+- [Configuration Options](#-configuration-options)
+  - [YOLO Model Settings](#yolo-model-settings)
+  - [Analysis Parameters](#analysis-parameters)
+- [Example Usage](#-example-usage)
+
+### 🔧 Troubleshooting & Support
+- [Common Issues & Solutions](#-common-issues--solutions)
+  - [Backend Issues](#backend-issues)
+  - [Frontend Issues](#frontend-issues)
+  - [Analysis Issues](#analysis-issues)
+
+### 📚 Additional Resources
+- [Next Steps](#-next-steps)
+- [License](#-license)
+
+---
 
 ## 🚀 What This Does
 
@@ -8,6 +66,10 @@ A smart queue analytics system using **YOLO11 AI** for patisseries and bakeries.
 - **Tracks queue wait times** automatically  
 - **Shows real-time analytics** in a web dashboard
 - **Alerts when queues get too long**
+
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
 
 ## 🛠️ Technology Stack
 
@@ -29,6 +91,10 @@ graph LR
 - **Backend**: Python + FastAPI + YOLO11
 - **Frontend**: React + TypeScript + Next.js
 - **AI Model**: Ultralytics YOLO11 for person detection
+
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
 
 ## 📁 Project Structure
 
@@ -65,6 +131,10 @@ JawekA7laJaw/
 │   └── package.json     # Node dependencies
 └── README.md            # This file
 ```
+
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
 
 ## ⚡ Quick Start (5 minutes)
 
@@ -106,6 +176,10 @@ npm run dev
 ```
 
 **✅ Frontend runs at:** http://localhost:3000
+
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
 
 ## 🐍 Python Code Explanation
 
@@ -240,6 +314,10 @@ class FPSBasedTimer:
         return 0
 ```
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
+
 ## 📊 How It Works
 
 ```mermaid
@@ -359,6 +437,10 @@ return {
 }
 ```
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
+
 ## 🎯 Key Features Explained
 
 ### Multi-Zone Polygon Detection
@@ -464,6 +546,10 @@ for person_id, entry_frame in person_trackers.items():
 average_wait = sum(wait_times) / len(wait_times)
 ```
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
+
 ## 🚨 Alert System Logic
 
 ```mermaid
@@ -519,6 +605,10 @@ def generate_alerts(queue_metrics):
     
     return alerts
 ```
+
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
 
 ## 📈 Business Metrics Calculation
 
@@ -577,6 +667,10 @@ def calculate_business_impact(analytics_data):
     }
 ```
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
+
 ## 🔧 Configuration Options
 
 ### YOLO Model Settings
@@ -598,6 +692,10 @@ SAMPLE_STRIDE = 40           # Save annotated frame every 40 frames (for speed)
 ZONE_OVERLAP = True          # Allow person to be in multiple zones
 TRACKING_PERSISTENCE = True   # Keep tracking people across frame gaps
 ```
+
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
 
 ## 🎬 Example Usage
 
@@ -660,6 +758,10 @@ npm run dev
 }
 ```
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
+
 ## 🐛 Common Issues & Solutions
 
 ### Backend Issues
@@ -712,6 +814,10 @@ lsof -ti:8000 | xargs kill
 - Redraw zone polygons more precisely
 - Check video frame rate settings
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
+
 ## 🎯 Next Steps
 
 1. **Test with your own videos**
@@ -720,12 +826,22 @@ lsof -ti:8000 | xargs kill
 4. **Integrate with your POS system**
 5. **Deploy to cloud for production use**
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
+---
+
 ## 📝 License
 
 MIT License - Feel free to use and modify!
 
 ---
 
+<div align="center">
+
 **Built with ❤️ by Team Jawek A7la Jaw**
 
 *Simple. Smart. Effective.* 🎂✨
+
+[↑ Back to Top](#-queueai---simple-setup-guide)
+
+</div>
