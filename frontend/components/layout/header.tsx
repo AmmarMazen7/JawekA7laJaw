@@ -1,6 +1,7 @@
 'use client'
 
 import { Moon, Sun } from 'lucide-react'
+import { UserButton } from '@clerk/nextjs'
 import { NotificationCenter } from './notification-center'
 
 interface HeaderProps {
@@ -26,6 +27,15 @@ export function Header({ darkMode, onDarkModeToggle }: HeaderProps) {
           >
             {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
+
+          <UserButton 
+            appearance={{
+              elements: {
+                avatarBox: "w-9 h-9"
+              }
+            }}
+            afterSignOutUrl="/sign-in"
+          />
         </div>
       </div>
     </header>

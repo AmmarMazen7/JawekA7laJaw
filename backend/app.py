@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from ultralytics import YOLO
 from pathlib import Path
@@ -45,6 +46,9 @@ model = YOLO(MODEL_PATH)
 
 # Simple in-memory mapping: video_id -> path
 VIDEO_STORE = {}
+
+# Store output videos: video_id -> output_video_path
+OUTPUT_VIDEO_STORE = {}
 
 
 # --------------------------
@@ -116,14 +120,16 @@ def run_multi_zone_analysis(
     zone_names: list[str],
     fps: float,
     frame_count: int,
+    output_video_path: str,  # Path to save annotated video
     conf: float = 0.4,
     device: str = "0",
-    sample_stride: int = 40,
+    sample_stride: int = 1,  # Process every frame by default for video output
     min_wait_sec_filter: float = 1.0,
 ):
     """
     Multi-zone queue analysis using FPS-based timer.
     Tracks people across zones and calculates per-zone and global metrics.
+    Saves an annotated video showing zones and tracking.
     
     Args:
         model: YOLO model instance
@@ -132,19 +138,21 @@ def run_multi_zone_analysis(
         zone_names: Names for each zone (e.g., ["Queue 1", "Queue 2", "Checkout 1"])
         fps: Video frames per second
         frame_count: Total number of frames in video
+        output_video_path: Path where annotated video will be saved
         conf: Confidence threshold for detections
         device: Device to run model on ("0" for GPU, "cpu" for CPU)
-        sample_stride: Save annotated frame every N frames
+        sample_stride: Process every Nth frame (1 = all frames)
         min_wait_sec_filter: Minimum wait time to count a person
     
     Returns:
         results_per_zone: Per-zone metrics and time series data
-        sample_frames_b64: Base64-encoded annotated frames
+        output_video_path: Path to saved annotated video
     """
     
     logger.info(f"Starting multi-zone analysis on {video_path}")
     logger.info(f"Video metadata: fps={fps:.2f}, frames={frame_count}, duration={frame_count/fps:.1f}s")
     logger.info(f"Analyzing {len(zones_polygons)} zones: {zone_names}")
+    logger.info(f"Output video will be saved to: {output_video_path}")
     logger.info(f"Config: conf={conf}, sample_stride={sample_stride}, min_wait_filter={min_wait_sec_filter}s")
     
     # -------------------------------------------------
@@ -176,8 +184,18 @@ def run_multi_zone_analysis(
         [] for _ in zones_polygons
     ]
     
-    # Annotated sample frames
-    sample_frames: list[np.ndarray] = []
+    # -------------------------------------------------
+    # Get video dimensions for output video writer
+    # -------------------------------------------------
+    cap = cv2.VideoCapture(video_path)
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    cap.release()
+    
+    # Initialize video writer for annotated output
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # MP4 codec
+    video_writer = cv2.VideoWriter(output_video_path, fourcc, fps, (width, height))
+    logger.info(f"Initialized video writer: {width}x{height} @ {fps:.2f} FPS")
     
     # -------------------------------------------------
     # 2) Run YOLO tracker
@@ -254,7 +272,7 @@ def run_multi_zone_analysis(
         time_stamps.append(frame_idx / fps if fps > 0 else frame_idx * dt)
         
         # -------------------------------------------------
-        # 5) Save annotated frames occasionally
+        # 5) Annotate and write frame to output video
         # -------------------------------------------------
         if frame_idx % sample_stride == 0:
             annotated = result.plot()  # BGR ndarray
@@ -281,11 +299,12 @@ def run_multi_zone_analysis(
                     thickness=3,
                 )
                 
-                # Draw zone name
+                # Draw zone name and current count
                 center = tuple(np.mean(poly, axis=0).astype(int).reshape(2))
+                text = f"{zone_names[idx]}: {len(inside_per_poly[idx])}"
                 cv2.putText(
                     annotated,
-                    zone_names[idx],
+                    text,
                     center,
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.7,
@@ -293,9 +312,13 @@ def run_multi_zone_analysis(
                     2
                 )
             
-            sample_frames.append(annotated)
+            # Write frame to video
+            video_writer.write(annotated)
     
+    # Release video writer
+    video_writer.release()
     logger.info(f"Finished processing {frame_idx} frames")
+    logger.info(f"Annotated video saved to: {output_video_path}")
     logger.info(f"Tracked {len(global_time_in_zone)} unique people globally")
     
     # -----------------------------------------------------
@@ -372,17 +395,9 @@ def run_multi_zone_analysis(
             "wait_times": poly_times,
         })
     
-    # -----------------------------------------------------
-    # 8) Encode sample frames to base64
-    # -----------------------------------------------------
-    sample_frames_b64 = []
-    for frame in sample_frames:
-        sample_frames_b64.append(encode_image_bgr_to_base64(frame))
-    
-    logger.info(f"Generated {len(sample_frames_b64)} annotated sample frames")
     logger.info("Multi-zone analysis complete!")
     
-    return results_per_zone, sample_frames_b64
+    return results_per_zone, output_video_path
 
 
 def run_queue_analysis(
@@ -666,26 +681,34 @@ async def analyze_multi_zone(req: MultiZoneAnalyzeRequest):
         fps, frame_count, duration_sec = get_video_metadata(video_path)
         logger.info(f"Video metadata: fps={fps:.2f}, frames={frame_count}, duration={duration_sec:.1f}s")
         
+        # Create output video path
+        output_dir = tempfile.mkdtemp()
+        output_video_path = str(Path(output_dir) / f"annotated_{req.video_id}.mp4")
+        
         # Extract polygons and names from zones
         zones_polygons = [zone.polygon for zone in req.zones]
         zone_names = [zone.name for zone in req.zones]
         
         # Run comprehensive analysis
-        results_per_zone, sample_frames_b64 = run_multi_zone_analysis(
+        results_per_zone, saved_video_path = run_multi_zone_analysis(
             model=model,
             video_path=video_path,
             zones_polygons=zones_polygons,
             zone_names=zone_names,
             fps=fps,
             frame_count=frame_count,
+            output_video_path=output_video_path,
             conf=req.conf,
             device=DEVICE,
             sample_stride=req.sample_stride,
             min_wait_sec_filter=req.min_wait_sec_filter,
         )
         
+        # Store output video path for later retrieval
+        OUTPUT_VIDEO_STORE[req.video_id] = saved_video_path
+        
         logger.info(f"✅ Analysis complete!")
-        logger.info(f"Generated {len(sample_frames_b64)} annotated frames")
+        logger.info(f"Output video saved: {saved_video_path}")
         logger.info(f"Analyzed {len(results_per_zone)} zones")
         
         # Log summary for each zone
@@ -710,13 +733,35 @@ async def analyze_multi_zone(req: MultiZoneAnalyzeRequest):
 
     return {
         "zones": results_per_zone,
-        "sample_frames": sample_frames_b64,
+        "output_video_url": f"/download-video/{req.video_id}",
         "fps": fps,
         "frame_count": frame_count,
         "duration_sec": duration_sec,
     }
 
 
+@app.get("/download-video/{video_id}")
+async def download_video(video_id: str):
+    """
+    Download or stream the annotated output video.
+    """
+    if video_id not in OUTPUT_VIDEO_STORE:
+        raise HTTPException(status_code=404, detail="Output video not found. Please run analysis first.")
+    
+    output_path = OUTPUT_VIDEO_STORE[video_id]
+    
+    if not os.path.exists(output_path):
+        raise HTTPException(status_code=404, detail="Output video file not found on disk.")
+    
+    logger.info(f"Serving output video: {output_path}")
+    
+    return FileResponse(
+        output_path,
+        media_type="video/mp4",
+        filename=f"annotated_{video_id}.mp4"
+    )
+
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8001)

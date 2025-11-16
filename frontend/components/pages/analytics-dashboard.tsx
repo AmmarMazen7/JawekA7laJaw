@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area } from 'recharts'
-import { Users, Clock, TrendingUp, AlertCircle, Target, Zap, RefreshCw } from 'lucide-react'
+import { Users, Clock, TrendingUp, AlertCircle, Target, Zap, RefreshCw, Upload } from 'lucide-react'
 
 interface QueueMetrics {
   totalCustomers: number
@@ -18,55 +18,125 @@ interface QueueMetrics {
   }[]
 }
 
+// Store for analysis results from the video upload page
+let globalAnalysisData: any = null
+
+export function setGlobalAnalysisData(data: any) {
+  globalAnalysisData = data
+}
+
 export function AnalyticsDashboard() {
   const [metrics, setMetrics] = useState<QueueMetrics>({
-    totalCustomers: 87,
-    customersServed: 73,
-    averageServiceTime: 4.2,
-    customersAbandoned: 2,
-    queueEfficiency: 87,
-    peakTime: '12:00 PM',
-    zones: [
-      { zoneId: 1, customers: 12, avgWaitTime: 3.5 },
-      { zoneId: 2, customers: 8, avgWaitTime: 2.8 },
-      { zoneId: 3, customers: 15, avgWaitTime: 5.2 },
-    ],
+    totalCustomers: 0,
+    customersServed: 0,
+    averageServiceTime: 0,
+    customersAbandoned: 0,
+    queueEfficiency: 0,
+    peakTime: '--',
+    zones: [],
   })
 
   const [refreshing, setRefreshing] = useState(false)
   const [timeRange, setTimeRange] = useState('1h')
+  const [hasData, setHasData] = useState(false)
 
-  const queueData = [
-    { time: '09:00', customers: 12, served: 8, abandoned: 0 },
-    { time: '10:00', customers: 19, served: 14, abandoned: 1 },
-    { time: '11:00', customers: 15, served: 15, abandoned: 0 },
-    { time: '12:00', customers: 25, served: 18, abandoned: 1 },
-    { time: '13:00', customers: 22, served: 20, abandoned: 0 },
-    { time: '14:00', customers: 18, served: 18, abandoned: 0 },
-  ]
+  // Load data from backend analysis results
+  useEffect(() => {
+    const loadAnalysisData = () => {
+      if (globalAnalysisData && globalAnalysisData.zones) {
+        const zones = globalAnalysisData.zones
+        
+        // Calculate metrics from actual backend data
+        const totalPeople = zones.reduce((sum: number, z: any) => sum + z.metrics.total_people_tracked, 0)
+        const measuredPeople = zones.reduce((sum: number, z: any) => sum + z.metrics.num_people_measured, 0)
+        const avgWait = zones.reduce((sum: number, z: any) => sum + (z.metrics.avg_wait || 0), 0) / (zones.length || 1)
+        
+        // Find peak time based on max queue length
+        let peakTime = '--'
+        zones.forEach((z: any) => {
+          if (z.queue_lengths && z.queue_timestamps) {
+            const maxIdx = z.queue_lengths.indexOf(Math.max(...z.queue_lengths))
+            if (maxIdx >= 0 && z.queue_timestamps[maxIdx]) {
+              const seconds = z.queue_timestamps[maxIdx]
+              const date = new Date(seconds * 1000)
+              peakTime = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+            }
+          }
+        })
+        
+        setMetrics({
+          totalCustomers: totalPeople,
+          customersServed: measuredPeople,
+          averageServiceTime: avgWait / 60, // Convert seconds to minutes
+          customersAbandoned: totalPeople - measuredPeople, // People who left before threshold
+          queueEfficiency: totalPeople > 0 ? Math.round((measuredPeople / totalPeople) * 100) : 0,
+          peakTime: peakTime,
+          zones: zones.map((z: any, idx: number) => ({
+            zoneId: idx + 1,
+            customers: z.metrics.total_people_tracked,
+            avgWaitTime: z.metrics.avg_wait ? (z.metrics.avg_wait / 60).toFixed(1) : 0, // Convert to minutes
+          }))
+        })
+        setHasData(true)
+      } else {
+        setHasData(false)
+      }
+    }
+    
+    loadAnalysisData()
+    
+    // Poll for updates every 5 seconds
+    const interval = setInterval(loadAnalysisData, 5000)
+    return () => clearInterval(interval)
+  }, [])
 
-  const waitTimeData = [
-    { time: '09:00', zone1: 2, zone2: 1.5, zone3: 3 },
-    { time: '10:00', zone1: 3.2, zone2: 2.8, zone3: 4.1 },
-    { time: '11:00', zone1: 2.5, zone2: 2, zone3: 3.2 },
-    { time: '12:00', zone1: 5.2, zone2: 4.8, zone3: 6.1 },
-    { time: '13:00', zone1: 4.8, zone2: 4.2, zone3: 5.5 },
-    { time: '14:00', zone1: 3.5, zone2: 3, zone3: 4.2 },
-  ]
+  // Generate time-series data from backend results
+  const generateTimeSeriesData = () => {
+    if (!globalAnalysisData || !globalAnalysisData.zones || globalAnalysisData.zones.length === 0) {
+      return []
+    }
+    
+    const zone = globalAnalysisData.zones[0]
+    if (!zone.queue_timestamps || !zone.queue_lengths) {
+      return []
+    }
+    
+    // Sample data points (every 10% of the video)
+    const sampleSize = Math.min(6, zone.queue_timestamps.length)
+    const step = Math.floor(zone.queue_timestamps.length / sampleSize)
+    
+    return Array.from({ length: sampleSize }, (_, i) => {
+      const idx = i * step
+      const timestamp = zone.queue_timestamps[idx]
+      const date = new Date(timestamp * 1000)
+      const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+      
+      const dataPoint: any = { time: timeStr }
+      
+      // Add data for each zone
+      globalAnalysisData.zones.forEach((z: any, zIdx: number) => {
+        dataPoint[`customers_z${zIdx + 1}`] = z.queue_lengths[idx] || 0
+        dataPoint[`zone${zIdx + 1}`] = z.queue_lengths[idx] ? (z.wait_times[Math.min(idx, z.wait_times.length - 1)] || 0) / 60 : 0
+      })
+      
+      return dataPoint
+    })
+  }
 
-  const zoneDistribution = [
-    { name: 'Zone 1', value: 35 },
-    { name: 'Zone 2', value: 25 },
-    { name: 'Zone 3', value: 40 },
-  ]
-
-  const customerFlow = [
-    { time: '09:00', inflow: 12, outflow: 8 },
-    { time: '10:00', inflow: 19, outflow: 14 },
-    { time: '11:00', inflow: 15, outflow: 15 },
-    { time: '12:00', inflow: 25, outflow: 18 },
-    { time: '13:00', inflow: 22, outflow: 20 },
-    { time: '14:00', inflow: 18, outflow: 18 },
+  const queueData = hasData ? generateTimeSeriesData() : []
+  const waitTimeData = hasData ? generateTimeSeriesData() : []
+  
+  const customerFlow = hasData && globalAnalysisData ? generateTimeSeriesData().map((d: any) => ({
+    time: d.time,
+    inflow: d.customers_z1 || 0,
+    outflow: Math.max(0, (d.customers_z1 || 0) - 2), // Approximate outflow
+  })) : []
+  
+  const zoneDistribution = hasData && metrics.zones.length > 0 ? metrics.zones.map(z => ({
+    name: `Zone ${z.zoneId}`,
+    value: z.customers
+  })) : [
+    { name: 'No Data', value: 1 }
   ]
 
   const COLORS = ['#00d9ff', '#0080ff', '#ff6b9d']
@@ -104,16 +174,11 @@ export function AnalyticsDashboard() {
 
   const handleRefresh = async () => {
     setRefreshing(true)
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setMetrics({
-      ...metrics,
-      totalCustomers: Math.floor(Math.random() * 100),
-      customersServed: Math.floor(Math.random() * 80),
-      averageServiceTime: (Math.random() * 2 + 3).toFixed(1) as any,
-      customersAbandoned: Math.floor(Math.random() * 5),
-      queueEfficiency: Math.floor(Math.random() * 20 + 70),
-    })
+    // Reload from global data
+    await new Promise(resolve => setTimeout(resolve, 500))
+    if (globalAnalysisData && globalAnalysisData.zones) {
+      // Data is already loaded from useEffect
+    }
     setRefreshing(false)
   }
 
@@ -122,18 +187,41 @@ export function AnalyticsDashboard() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold mb-2">Queue Analytics Dashboard</h1>
-          <p className="text-muted-foreground">Real-time monitoring and insights</p>
+          <p className="text-muted-foreground">
+            {hasData ? 'Real-time monitoring and insights' : 'Upload and analyze a video to see metrics'}
+          </p>
         </div>
         <button
           onClick={handleRefresh}
-          disabled={refreshing}
+          disabled={refreshing || !hasData}
           className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 transition-colors font-semibold"
         >
           <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
           {refreshing ? 'Refreshing...' : 'Refresh'}
         </button>
       </div>
+      
+      {/* No Data Message */}
+      {!hasData && (
+        <div className="bg-card rounded-lg border border-border p-12 text-center">
+          <AlertCircle className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+          <h3 className="text-xl font-semibold mb-2">No Analysis Data Yet</h3>
+          <p className="text-muted-foreground mb-6">
+            Upload a video and run zone analysis to see dashboard metrics and insights.
+          </p>
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-semibold"
+          >
+            <Upload className="w-4 h-4" />
+            Go to Video Upload
+          </a>
+        </div>
+      )}
 
+      {/* Stats Grid - Only show if we have data */}
+      {hasData && (
+        <>
       {/* Time Range Filter */}
       <div className="flex gap-2">
         {['1h', '4h', '24h', '7d'].map((range) => (
@@ -242,7 +330,7 @@ export function AnalyticsDashboard() {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                label={({ name, percent }: any) => `${name} ${percent ? (percent * 100).toFixed(0) : 0}%`}
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="value"
@@ -381,6 +469,8 @@ export function AnalyticsDashboard() {
           </ul>
         </div>
       </div>
+      </>
+      )}
     </div>
   )
 }

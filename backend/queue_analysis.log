@@ -642,3 +642,427 @@
 2025-11-16 06:41:50,314 - app - INFO -   Avg wait: 13.51s
 2025-11-16 06:41:50,314 - app - INFO -   People measured: 19
 2025-11-16 06:41:50,315 - app - INFO - ================================================================================
+2025-11-16 06:53:38,629 - app - INFO - ================================================================================
+2025-11-16 06:53:38,629 - app - INFO - VIDEO UPLOAD REQUEST
+2025-11-16 06:53:38,629 - app - INFO - ================================================================================
+2025-11-16 06:53:38,629 - app - INFO - Filename: HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 06:53:38,629 - app - INFO - Content type: video/mp4
+2025-11-16 06:53:38,629 - app - INFO - Saving to: /tmp/tmpeuzi_x76/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 06:53:38,642 - app - INFO - File size: 13.79 MB
+2025-11-16 06:53:38,656 - app - INFO - Extracted first frame: (360, 640, 3)
+2025-11-16 06:53:38,657 - app - INFO - Generated video ID: vid_1763276018657
+2025-11-16 06:53:38,665 - app - INFO - Video metadata:
+2025-11-16 06:53:38,665 - app - INFO -   - Resolution: 640x360
+2025-11-16 06:53:38,665 - app - INFO -   - FPS: 15.00
+2025-11-16 06:53:38,665 - app - INFO -   - Frames: 4485
+2025-11-16 06:53:38,665 - app - INFO -   - Duration: 299.0s
+2025-11-16 06:53:38,665 - app - INFO - ✅ Upload successful!
+2025-11-16 06:53:38,665 - app - INFO - ================================================================================
+2025-11-16 06:54:18,432 - app - INFO - ================================================================================
+2025-11-16 06:54:18,432 - app - INFO - MULTI-ZONE ANALYSIS REQUEST
+2025-11-16 06:54:18,432 - app - INFO - ================================================================================
+2025-11-16 06:54:18,432 - app - INFO - Video ID: vid_1763276018657
+2025-11-16 06:54:18,432 - app - INFO - Video path: /tmp/tmpeuzi_x76/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 06:54:18,432 - app - INFO - Request parameters:
+2025-11-16 06:54:18,432 - app - INFO -   - Number of zones: 3
+2025-11-16 06:54:18,432 - app - INFO -   - Confidence threshold: 0.4
+2025-11-16 06:54:18,432 - app - INFO -   - Min wait filter: 1.0s
+2025-11-16 06:54:18,432 - app - INFO -   - Sample stride: 40
+2025-11-16 06:54:18,432 - app - INFO -   - Zone 1: 'Zone 1' with 10 polygon points
+2025-11-16 06:54:18,432 - app - INFO -   - Zone 2: 'Zone 2' with 9 polygon points
+2025-11-16 06:54:18,432 - app - INFO -   - Zone 3: 'Zone 3' with 10 polygon points
+2025-11-16 06:54:18,440 - app - INFO - Video metadata: fps=15.00, frames=4485, duration=299.0s
+2025-11-16 06:54:18,440 - app - INFO - Starting multi-zone analysis on /tmp/tmpeuzi_x76/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 06:54:18,440 - app - INFO - Video metadata: fps=15.00, frames=4485, duration=299.0s
+2025-11-16 06:54:18,440 - app - INFO - Analyzing 3 zones: ['Zone 1', 'Zone 2', 'Zone 3']
+2025-11-16 06:54:18,440 - app - INFO - Config: conf=0.4, sample_stride=40, min_wait_filter=1.0s
+2025-11-16 06:54:18,440 - app - INFO - Prepared 3 polygon zones for analysis
+2025-11-16 06:54:18,440 - app - INFO - Starting YOLO tracking...
+2025-11-16 06:54:20,451 - app - INFO - Processing frame 128/4485 (2.9%)
+2025-11-16 06:54:22,453 - app - INFO - Processing frame 262/4485 (5.8%)
+2025-11-16 06:54:24,460 - app - INFO - Processing frame 392/4485 (8.7%)
+2025-11-16 06:54:26,471 - app - INFO - Processing frame 523/4485 (11.7%)
+2025-11-16 06:54:28,484 - app - INFO - Processing frame 660/4485 (14.7%)
+2025-11-16 06:54:30,487 - app - INFO - Processing frame 792/4485 (17.7%)
+2025-11-16 06:54:32,487 - app - INFO - Processing frame 927/4485 (20.7%)
+2025-11-16 06:54:34,497 - app - INFO - Processing frame 1064/4485 (23.7%)
+2025-11-16 06:54:36,509 - app - INFO - Processing frame 1198/4485 (26.7%)
+2025-11-16 06:54:38,514 - app - INFO - Processing frame 1342/4485 (29.9%)
+2025-11-16 06:54:40,523 - app - INFO - Processing frame 1497/4485 (33.4%)
+2025-11-16 06:54:42,533 - app - INFO - Processing frame 1653/4485 (36.9%)
+2025-11-16 06:54:44,539 - app - INFO - Processing frame 1810/4485 (40.4%)
+2025-11-16 06:54:46,541 - app - INFO - Processing frame 1961/4485 (43.7%)
+2025-11-16 06:54:48,545 - app - INFO - Processing frame 2107/4485 (47.0%)
+2025-11-16 06:54:50,549 - app - INFO - Processing frame 2255/4485 (50.3%)
+2025-11-16 06:54:52,555 - app - INFO - Processing frame 2402/4485 (53.6%)
+2025-11-16 06:54:54,566 - app - INFO - Processing frame 2554/4485 (56.9%)
+2025-11-16 06:54:56,576 - app - INFO - Processing frame 2709/4485 (60.4%)
+2025-11-16 06:54:58,587 - app - INFO - Processing frame 2866/4485 (63.9%)
+2025-11-16 06:55:00,592 - app - INFO - Processing frame 3028/4485 (67.5%)
+2025-11-16 06:55:02,597 - app - INFO - Processing frame 3190/4485 (71.1%)
+2025-11-16 06:55:04,609 - app - INFO - Processing frame 3350/4485 (74.7%)
+2025-11-16 06:55:06,613 - app - INFO - Processing frame 3497/4485 (78.0%)
+2025-11-16 06:55:08,615 - app - INFO - Processing frame 3627/4485 (80.9%)
+2025-11-16 06:55:10,616 - app - INFO - Processing frame 3768/4485 (84.0%)
+2025-11-16 06:55:12,619 - app - INFO - Processing frame 3920/4485 (87.4%)
+2025-11-16 06:55:14,627 - app - INFO - Processing frame 4070/4485 (90.7%)
+2025-11-16 06:55:16,629 - app - INFO - Processing frame 4218/4485 (94.0%)
+2025-11-16 06:55:18,635 - app - INFO - Processing frame 4370/4485 (97.4%)
+2025-11-16 06:55:20,106 - app - INFO - Finished processing 4485 frames
+2025-11-16 06:55:20,107 - app - INFO - Tracked 47 unique people globally
+2025-11-16 06:55:20,107 - app - INFO - Global: 32 people with wait time >= 1.0s
+2025-11-16 06:55:20,107 - app - INFO - Global wait times - avg: 14.33s, min: 1.07s, max: 68.40s
+2025-11-16 06:55:20,107 - app - INFO - Global queue - avg length: 1.55, max: 5
+2025-11-16 06:55:20,107 - app - INFO - Zone 'Zone 1': 3 tracked, 2 above threshold
+2025-11-16 06:55:20,107 - app - INFO -   Wait times - avg: 3.27s, min: 1.40s, max: 5.13s
+2025-11-16 06:55:20,107 - app - INFO -   Queue length - avg: 0.02, max: 1
+2025-11-16 06:55:20,108 - app - INFO - Zone 'Zone 2': 13 tracked, 11 above threshold
+2025-11-16 06:55:20,108 - app - INFO -   Wait times - avg: 16.91s, min: 5.00s, max: 57.80s
+2025-11-16 06:55:20,108 - app - INFO -   Queue length - avg: 0.62, max: 3
+2025-11-16 06:55:20,108 - app - INFO - Zone 'Zone 3': 31 tracked, 19 above threshold
+2025-11-16 06:55:20,108 - app - INFO -   Wait times - avg: 13.99s, min: 1.07s, max: 68.40s
+2025-11-16 06:55:20,109 - app - INFO -   Queue length - avg: 0.91, max: 3
+2025-11-16 06:55:20,194 - app - INFO - Generated 100 annotated sample frames
+2025-11-16 06:55:20,194 - app - INFO - Multi-zone analysis complete!
+2025-11-16 06:55:20,194 - app - INFO - ✅ Analysis complete!
+2025-11-16 06:55:20,194 - app - INFO - Generated 100 annotated frames
+2025-11-16 06:55:20,194 - app - INFO - Analyzed 3 zones
+2025-11-16 06:55:20,195 - app - INFO - Zone 'Zone 1' summary:
+2025-11-16 06:55:20,195 - app - INFO -   Avg wait: 3.27s
+2025-11-16 06:55:20,195 - app - INFO -   People measured: 2
+2025-11-16 06:55:20,195 - app - INFO - Zone 'Zone 2' summary:
+2025-11-16 06:55:20,195 - app - INFO -   Avg wait: 16.91s
+2025-11-16 06:55:20,195 - app - INFO -   People measured: 11
+2025-11-16 06:55:20,195 - app - INFO - Zone 'Zone 3' summary:
+2025-11-16 06:55:20,195 - app - INFO -   Avg wait: 13.99s
+2025-11-16 06:55:20,195 - app - INFO -   People measured: 19
+2025-11-16 06:55:20,195 - app - INFO - ================================================================================
+2025-11-16 07:09:11,004 - app - INFO - ================================================================================
+2025-11-16 07:09:11,004 - app - INFO - VIDEO UPLOAD REQUEST
+2025-11-16 07:09:11,004 - app - INFO - ================================================================================
+2025-11-16 07:09:11,004 - app - INFO - Filename: HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 07:09:11,004 - app - INFO - Content type: video/mp4
+2025-11-16 07:09:11,005 - app - INFO - Saving to: /tmp/tmp3ik7st2t/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 07:09:11,018 - app - INFO - File size: 13.79 MB
+2025-11-16 07:09:11,031 - app - INFO - Extracted first frame: (360, 640, 3)
+2025-11-16 07:09:11,032 - app - INFO - Generated video ID: vid_1763276951032
+2025-11-16 07:09:11,039 - app - INFO - Video metadata:
+2025-11-16 07:09:11,040 - app - INFO -   - Resolution: 640x360
+2025-11-16 07:09:11,040 - app - INFO -   - FPS: 15.00
+2025-11-16 07:09:11,040 - app - INFO -   - Frames: 4485
+2025-11-16 07:09:11,040 - app - INFO -   - Duration: 299.0s
+2025-11-16 07:09:11,040 - app - INFO - ✅ Upload successful!
+2025-11-16 07:09:11,040 - app - INFO - ================================================================================
+2025-11-16 07:09:29,106 - app - INFO - ================================================================================
+2025-11-16 07:09:29,106 - app - INFO - MULTI-ZONE ANALYSIS REQUEST
+2025-11-16 07:09:29,106 - app - INFO - ================================================================================
+2025-11-16 07:09:29,107 - app - INFO - Video ID: vid_1763276951032
+2025-11-16 07:09:29,107 - app - INFO - Video path: /tmp/tmp3ik7st2t/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 07:09:29,107 - app - INFO - Request parameters:
+2025-11-16 07:09:29,107 - app - INFO -   - Number of zones: 1
+2025-11-16 07:09:29,107 - app - INFO -   - Confidence threshold: 0.4
+2025-11-16 07:09:29,107 - app - INFO -   - Min wait filter: 1.0s
+2025-11-16 07:09:29,107 - app - INFO -   - Sample stride: 40
+2025-11-16 07:09:29,107 - app - INFO -   - Zone 1: 'Zone 1' with 9 polygon points
+2025-11-16 07:09:29,114 - app - INFO - Video metadata: fps=15.00, frames=4485, duration=299.0s
+2025-11-16 07:09:29,114 - app - INFO - Starting multi-zone analysis on /tmp/tmp3ik7st2t/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 07:09:29,114 - app - INFO - Video metadata: fps=15.00, frames=4485, duration=299.0s
+2025-11-16 07:09:29,114 - app - INFO - Analyzing 1 zones: ['Zone 1']
+2025-11-16 07:09:29,114 - app - INFO - Config: conf=0.4, sample_stride=40, min_wait_filter=1.0s
+2025-11-16 07:09:29,114 - app - INFO - Prepared 1 polygon zones for analysis
+2025-11-16 07:09:29,115 - app - INFO - Starting YOLO tracking...
+2025-11-16 07:09:31,117 - app - INFO - Processing frame 149/4485 (3.3%)
+2025-11-16 07:09:33,130 - app - INFO - Processing frame 304/4485 (6.8%)
+2025-11-16 07:09:35,138 - app - INFO - Processing frame 454/4485 (10.1%)
+2025-11-16 07:09:37,147 - app - INFO - Processing frame 610/4485 (13.6%)
+2025-11-16 07:09:39,148 - app - INFO - Processing frame 766/4485 (17.1%)
+2025-11-16 07:09:41,150 - app - INFO - Processing frame 923/4485 (20.6%)
+2025-11-16 07:09:43,155 - app - INFO - Processing frame 1082/4485 (24.1%)
+2025-11-16 07:09:45,158 - app - INFO - Processing frame 1229/4485 (27.4%)
+2025-11-16 07:09:47,170 - app - INFO - Processing frame 1376/4485 (30.7%)
+2025-11-16 07:09:49,180 - app - INFO - Processing frame 1522/4485 (33.9%)
+2025-11-16 07:09:51,183 - app - INFO - Processing frame 1668/4485 (37.2%)
+2025-11-16 07:09:53,192 - app - INFO - Processing frame 1805/4485 (40.2%)
+2025-11-16 07:09:55,201 - app - INFO - Processing frame 1938/4485 (43.2%)
+2025-11-16 07:09:57,206 - app - INFO - Processing frame 2065/4485 (46.0%)
+2025-11-16 07:09:59,214 - app - INFO - Processing frame 2201/4485 (49.1%)
+2025-11-16 07:10:01,220 - app - INFO - Processing frame 2346/4485 (52.3%)
+2025-11-16 07:10:03,229 - app - INFO - Processing frame 2494/4485 (55.6%)
+2025-11-16 07:10:05,231 - app - INFO - Processing frame 2644/4485 (59.0%)
+2025-11-16 07:10:07,240 - app - INFO - Processing frame 2796/4485 (62.3%)
+2025-11-16 07:10:09,249 - app - INFO - Processing frame 2959/4485 (66.0%)
+2025-11-16 07:10:11,254 - app - INFO - Processing frame 3122/4485 (69.6%)
+2025-11-16 07:10:13,260 - app - INFO - Processing frame 3284/4485 (73.2%)
+2025-11-16 07:10:15,262 - app - INFO - Processing frame 3443/4485 (76.8%)
+2025-11-16 07:10:17,276 - app - INFO - Processing frame 3587/4485 (80.0%)
+2025-11-16 07:10:19,282 - app - INFO - Processing frame 3742/4485 (83.4%)
+2025-11-16 07:10:21,289 - app - INFO - Processing frame 3912/4485 (87.2%)
+2025-11-16 07:10:23,298 - app - INFO - Processing frame 4081/4485 (91.0%)
+2025-11-16 07:10:25,311 - app - INFO - Processing frame 4237/4485 (94.5%)
+2025-11-16 07:10:27,323 - app - INFO - Processing frame 4383/4485 (97.7%)
+2025-11-16 07:10:28,696 - app - INFO - Finished processing 4485 frames
+2025-11-16 07:10:28,696 - app - INFO - Tracked 12 unique people globally
+2025-11-16 07:10:28,696 - app - INFO - Global: 10 people with wait time >= 1.0s
+2025-11-16 07:10:28,696 - app - INFO - Global wait times - avg: 17.96s, min: 4.73s, max: 57.80s
+2025-11-16 07:10:28,696 - app - INFO - Global queue - avg length: 0.60, max: 3
+2025-11-16 07:10:28,697 - app - INFO - Zone 'Zone 1': 12 tracked, 10 above threshold
+2025-11-16 07:10:28,697 - app - INFO -   Wait times - avg: 17.96s, min: 4.73s, max: 57.80s
+2025-11-16 07:10:28,697 - app - INFO -   Queue length - avg: 0.60, max: 3
+2025-11-16 07:10:28,780 - app - INFO - Generated 100 annotated sample frames
+2025-11-16 07:10:28,780 - app - INFO - Multi-zone analysis complete!
+2025-11-16 07:10:28,780 - app - INFO - ✅ Analysis complete!
+2025-11-16 07:10:28,780 - app - INFO - Generated 100 annotated frames
+2025-11-16 07:10:28,780 - app - INFO - Analyzed 1 zones
+2025-11-16 07:10:28,780 - app - INFO - Zone 'Zone 1' summary:
+2025-11-16 07:10:28,780 - app - INFO -   Avg wait: 17.96s
+2025-11-16 07:10:28,780 - app - INFO -   People measured: 10
+2025-11-16 07:10:28,780 - app - INFO - ================================================================================
+2025-11-16 07:24:56,983 - app - INFO - ================================================================================
+2025-11-16 07:24:56,984 - app - INFO - VIDEO UPLOAD REQUEST
+2025-11-16 07:24:56,984 - app - INFO - ================================================================================
+2025-11-16 07:24:56,984 - app - INFO - Filename: HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 07:24:56,984 - app - INFO - Content type: video/mp4
+2025-11-16 07:24:56,984 - app - INFO - Saving to: /tmp/tmpsjm_j1w9/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 07:24:56,996 - app - INFO - File size: 13.79 MB
+2025-11-16 07:24:57,009 - app - INFO - Extracted first frame: (360, 640, 3)
+2025-11-16 07:24:57,010 - app - INFO - Generated video ID: vid_1763277897010
+2025-11-16 07:24:57,017 - app - INFO - Video metadata:
+2025-11-16 07:24:57,017 - app - INFO -   - Resolution: 640x360
+2025-11-16 07:24:57,017 - app - INFO -   - FPS: 15.00
+2025-11-16 07:24:57,017 - app - INFO -   - Frames: 4485
+2025-11-16 07:24:57,017 - app - INFO -   - Duration: 299.0s
+2025-11-16 07:24:57,017 - app - INFO - ✅ Upload successful!
+2025-11-16 07:24:57,017 - app - INFO - ================================================================================
+2025-11-16 07:25:16,738 - app - INFO - ================================================================================
+2025-11-16 07:25:16,738 - app - INFO - MULTI-ZONE ANALYSIS REQUEST
+2025-11-16 07:25:16,738 - app - INFO - ================================================================================
+2025-11-16 07:25:16,738 - app - INFO - Video ID: vid_1763277897010
+2025-11-16 07:25:16,738 - app - INFO - Video path: /tmp/tmpsjm_j1w9/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 07:25:16,738 - app - INFO - Request parameters:
+2025-11-16 07:25:16,738 - app - INFO -   - Number of zones: 2
+2025-11-16 07:25:16,738 - app - INFO -   - Confidence threshold: 0.4
+2025-11-16 07:25:16,738 - app - INFO -   - Min wait filter: 1.0s
+2025-11-16 07:25:16,738 - app - INFO -   - Sample stride: 40
+2025-11-16 07:25:16,738 - app - INFO -   - Zone 1: 'Zone 1' with 9 polygon points
+2025-11-16 07:25:16,738 - app - INFO -   - Zone 2: 'Zone 2' with 11 polygon points
+2025-11-16 07:25:16,745 - app - INFO - Video metadata: fps=15.00, frames=4485, duration=299.0s
+2025-11-16 07:25:16,746 - app - INFO - Starting multi-zone analysis on /tmp/tmpsjm_j1w9/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 07:25:16,746 - app - INFO - Video metadata: fps=15.00, frames=4485, duration=299.0s
+2025-11-16 07:25:16,746 - app - INFO - Analyzing 2 zones: ['Zone 1', 'Zone 2']
+2025-11-16 07:25:16,746 - app - INFO - Config: conf=0.4, sample_stride=40, min_wait_filter=1.0s
+2025-11-16 07:25:16,746 - app - INFO - Prepared 2 polygon zones for analysis
+2025-11-16 07:25:16,746 - app - INFO - Starting YOLO tracking...
+2025-11-16 07:25:18,758 - app - INFO - Processing frame 149/4485 (3.3%)
+2025-11-16 07:25:20,766 - app - INFO - Processing frame 304/4485 (6.8%)
+2025-11-16 07:25:22,767 - app - INFO - Processing frame 453/4485 (10.1%)
+2025-11-16 07:25:24,769 - app - INFO - Processing frame 609/4485 (13.6%)
+2025-11-16 07:25:26,772 - app - INFO - Processing frame 765/4485 (17.1%)
+2025-11-16 07:25:28,772 - app - INFO - Processing frame 922/4485 (20.6%)
+2025-11-16 07:25:30,776 - app - INFO - Processing frame 1077/4485 (24.0%)
+2025-11-16 07:25:32,786 - app - INFO - Processing frame 1231/4485 (27.4%)
+2025-11-16 07:25:34,791 - app - INFO - Processing frame 1382/4485 (30.8%)
+2025-11-16 07:25:36,801 - app - INFO - Processing frame 1533/4485 (34.2%)
+2025-11-16 07:25:38,815 - app - INFO - Processing frame 1679/4485 (37.4%)
+2025-11-16 07:25:40,822 - app - INFO - Processing frame 1834/4485 (40.9%)
+2025-11-16 07:25:42,824 - app - INFO - Processing frame 1984/4485 (44.2%)
+2025-11-16 07:25:44,825 - app - INFO - Processing frame 2131/4485 (47.5%)
+2025-11-16 07:25:46,835 - app - INFO - Processing frame 2280/4485 (50.8%)
+2025-11-16 07:25:48,840 - app - INFO - Processing frame 2423/4485 (54.0%)
+2025-11-16 07:25:50,851 - app - INFO - Processing frame 2571/4485 (57.3%)
+2025-11-16 07:25:52,859 - app - INFO - Processing frame 2727/4485 (60.8%)
+2025-11-16 07:25:54,865 - app - INFO - Processing frame 2887/4485 (64.4%)
+2025-11-16 07:25:56,872 - app - INFO - Processing frame 3049/4485 (68.0%)
+2025-11-16 07:25:58,877 - app - INFO - Processing frame 3213/4485 (71.6%)
+2025-11-16 07:26:00,886 - app - INFO - Processing frame 3375/4485 (75.3%)
+2025-11-16 07:26:02,892 - app - INFO - Processing frame 3530/4485 (78.7%)
+2025-11-16 07:26:04,902 - app - INFO - Processing frame 3685/4485 (82.2%)
+2025-11-16 07:26:06,912 - app - INFO - Processing frame 3854/4485 (85.9%)
+2025-11-16 07:26:08,919 - app - INFO - Processing frame 4026/4485 (89.8%)
+2025-11-16 07:26:10,925 - app - INFO - Processing frame 4192/4485 (93.5%)
+2025-11-16 07:26:12,938 - app - INFO - Processing frame 4341/4485 (96.8%)
+2025-11-16 07:26:14,827 - app - INFO - Finished processing 4485 frames
+2025-11-16 07:26:14,827 - app - INFO - Tracked 44 unique people globally
+2025-11-16 07:26:14,827 - app - INFO - Global: 30 people with wait time >= 1.0s
+2025-11-16 07:26:14,827 - app - INFO - Global wait times - avg: 14.90s, min: 1.07s, max: 68.80s
+2025-11-16 07:26:14,827 - app - INFO - Global queue - avg length: 1.51, max: 5
+2025-11-16 07:26:14,827 - app - INFO - Zone 'Zone 1': 12 tracked, 10 above threshold
+2025-11-16 07:26:14,827 - app - INFO -   Wait times - avg: 17.86s, min: 4.80s, max: 57.80s
+2025-11-16 07:26:14,828 - app - INFO -   Queue length - avg: 0.60, max: 3
+2025-11-16 07:26:14,828 - app - INFO - Zone 'Zone 2': 32 tracked, 20 above threshold
+2025-11-16 07:26:14,828 - app - INFO -   Wait times - avg: 13.42s, min: 1.07s, max: 68.80s
+2025-11-16 07:26:14,828 - app - INFO -   Queue length - avg: 0.91, max: 3
+2025-11-16 07:26:14,912 - app - INFO - Generated 100 annotated sample frames
+2025-11-16 07:26:14,912 - app - INFO - Multi-zone analysis complete!
+2025-11-16 07:26:14,912 - app - INFO - ✅ Analysis complete!
+2025-11-16 07:26:14,912 - app - INFO - Generated 100 annotated frames
+2025-11-16 07:26:14,912 - app - INFO - Analyzed 2 zones
+2025-11-16 07:26:14,912 - app - INFO - Zone 'Zone 1' summary:
+2025-11-16 07:26:14,912 - app - INFO -   Avg wait: 17.86s
+2025-11-16 07:26:14,912 - app - INFO -   People measured: 10
+2025-11-16 07:26:14,912 - app - INFO - Zone 'Zone 2' summary:
+2025-11-16 07:26:14,912 - app - INFO -   Avg wait: 13.42s
+2025-11-16 07:26:14,913 - app - INFO -   People measured: 20
+2025-11-16 07:26:14,913 - app - INFO - ================================================================================
+2025-11-16 08:12:42,534 - app - INFO - ================================================================================
+2025-11-16 08:12:42,534 - app - INFO - VIDEO UPLOAD REQUEST
+2025-11-16 08:12:42,534 - app - INFO - ================================================================================
+2025-11-16 08:12:42,534 - app - INFO - Filename: HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 08:12:42,534 - app - INFO - Content type: video/mp4
+2025-11-16 08:12:42,534 - app - INFO - Saving to: /tmp/tmp6mv1tdui/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 08:12:42,552 - app - INFO - File size: 13.79 MB
+2025-11-16 08:12:42,574 - app - INFO - Extracted first frame: (360, 640, 3)
+2025-11-16 08:12:42,576 - app - INFO - Generated video ID: vid_1763280762576
+2025-11-16 08:12:42,583 - app - INFO - Video metadata:
+2025-11-16 08:12:42,583 - app - INFO -   - Resolution: 640x360
+2025-11-16 08:12:42,583 - app - INFO -   - FPS: 15.00
+2025-11-16 08:12:42,583 - app - INFO -   - Frames: 4485
+2025-11-16 08:12:42,583 - app - INFO -   - Duration: 299.0s
+2025-11-16 08:12:42,583 - app - INFO - ✅ Upload successful!
+2025-11-16 08:12:42,583 - app - INFO - ================================================================================
+2025-11-16 08:12:53,781 - app - INFO - ================================================================================
+2025-11-16 08:12:53,781 - app - INFO - MULTI-ZONE ANALYSIS REQUEST
+2025-11-16 08:12:53,781 - app - INFO - ================================================================================
+2025-11-16 08:12:53,781 - app - INFO - Video ID: vid_1763280762576
+2025-11-16 08:12:53,781 - app - INFO - Video path: /tmp/tmp6mv1tdui/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 08:12:53,781 - app - INFO - Request parameters:
+2025-11-16 08:12:53,781 - app - INFO -   - Number of zones: 1
+2025-11-16 08:12:53,781 - app - INFO -   - Confidence threshold: 0.4
+2025-11-16 08:12:53,781 - app - INFO -   - Min wait filter: 1.0s
+2025-11-16 08:12:53,781 - app - INFO -   - Sample stride: 40
+2025-11-16 08:12:53,781 - app - INFO -   - Zone 1: 'Zone 1' with 7 polygon points
+2025-11-16 08:12:53,788 - app - INFO - Video metadata: fps=15.00, frames=4485, duration=299.0s
+2025-11-16 08:12:53,788 - app - INFO - Starting multi-zone analysis on /tmp/tmp6mv1tdui/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 08:12:53,788 - app - INFO - Video metadata: fps=15.00, frames=4485, duration=299.0s
+2025-11-16 08:12:53,789 - app - INFO - Analyzing 1 zones: ['Zone 1']
+2025-11-16 08:12:53,789 - app - INFO - Config: conf=0.4, sample_stride=40, min_wait_filter=1.0s
+2025-11-16 08:12:53,789 - app - INFO - Prepared 1 polygon zones for analysis
+2025-11-16 08:12:53,789 - app - INFO - Starting YOLO tracking...
+2025-11-16 08:12:56,094 - app - INFO - Processing frame 75/4485 (1.7%)
+2025-11-16 08:12:58,096 - app - INFO - Processing frame 230/4485 (5.1%)
+2025-11-16 08:13:00,109 - app - INFO - Processing frame 385/4485 (8.6%)
+2025-11-16 08:13:02,115 - app - INFO - Processing frame 541/4485 (12.1%)
+2025-11-16 08:13:04,116 - app - INFO - Processing frame 701/4485 (15.6%)
+2025-11-16 08:13:06,118 - app - INFO - Processing frame 859/4485 (19.2%)
+2025-11-16 08:13:08,130 - app - INFO - Processing frame 1021/4485 (22.8%)
+2025-11-16 08:13:10,133 - app - INFO - Processing frame 1179/4485 (26.3%)
+2025-11-16 08:13:12,138 - app - INFO - Processing frame 1335/4485 (29.8%)
+2025-11-16 08:13:14,141 - app - INFO - Processing frame 1491/4485 (33.2%)
+2025-11-16 08:13:16,153 - app - INFO - Processing frame 1647/4485 (36.7%)
+2025-11-16 08:13:18,157 - app - INFO - Processing frame 1805/4485 (40.2%)
+2025-11-16 08:13:20,162 - app - INFO - Processing frame 1952/4485 (43.5%)
+2025-11-16 08:13:22,175 - app - INFO - Processing frame 2076/4485 (46.3%)
+2025-11-16 08:13:24,178 - app - INFO - Processing frame 2209/4485 (49.3%)
+2025-11-16 08:13:26,181 - app - INFO - Processing frame 2354/4485 (52.5%)
+2025-11-16 08:13:28,195 - app - INFO - Processing frame 2497/4485 (55.7%)
+2025-11-16 08:13:30,200 - app - INFO - Processing frame 2643/4485 (58.9%)
+2025-11-16 08:13:32,210 - app - INFO - Processing frame 2795/4485 (62.3%)
+2025-11-16 08:13:34,222 - app - INFO - Processing frame 2948/4485 (65.7%)
+2025-11-16 08:13:36,229 - app - INFO - Processing frame 3103/4485 (69.2%)
+2025-11-16 08:13:38,230 - app - INFO - Processing frame 3262/4485 (72.7%)
+2025-11-16 08:13:40,237 - app - INFO - Processing frame 3421/4485 (76.3%)
+2025-11-16 08:13:42,250 - app - INFO - Processing frame 3568/4485 (79.6%)
+2025-11-16 08:13:44,256 - app - INFO - Processing frame 3732/4485 (83.2%)
+2025-11-16 08:13:46,257 - app - INFO - Processing frame 3907/4485 (87.1%)
+2025-11-16 08:13:48,265 - app - INFO - Processing frame 4079/4485 (90.9%)
+2025-11-16 08:13:50,269 - app - INFO - Processing frame 4242/4485 (94.6%)
+2025-11-16 08:13:52,272 - app - INFO - Processing frame 4381/4485 (97.7%)
+2025-11-16 08:13:53,658 - app - INFO - Finished processing 4485 frames
+2025-11-16 08:13:53,658 - app - INFO - Tracked 12 unique people globally
+2025-11-16 08:13:53,658 - app - INFO - Global: 10 people with wait time >= 1.0s
+2025-11-16 08:13:53,658 - app - INFO - Global wait times - avg: 17.05s, min: 4.53s, max: 57.80s
+2025-11-16 08:13:53,658 - app - INFO - Global queue - avg length: 0.57, max: 3
+2025-11-16 08:13:53,658 - app - INFO - Zone 'Zone 1': 12 tracked, 10 above threshold
+2025-11-16 08:13:53,658 - app - INFO -   Wait times - avg: 17.05s, min: 4.53s, max: 57.80s
+2025-11-16 08:13:53,658 - app - INFO -   Queue length - avg: 0.57, max: 3
+2025-11-16 08:13:53,741 - app - INFO - Generated 100 annotated sample frames
+2025-11-16 08:13:53,741 - app - INFO - Multi-zone analysis complete!
+2025-11-16 08:13:53,741 - app - INFO - ✅ Analysis complete!
+2025-11-16 08:13:53,741 - app - INFO - Generated 100 annotated frames
+2025-11-16 08:13:53,741 - app - INFO - Analyzed 1 zones
+2025-11-16 08:13:53,741 - app - INFO - Zone 'Zone 1' summary:
+2025-11-16 08:13:53,741 - app - INFO -   Avg wait: 17.05s
+2025-11-16 08:13:53,741 - app - INFO -   People measured: 10
+2025-11-16 08:13:53,741 - app - INFO - ================================================================================
+2025-11-16 08:23:59,143 - app - INFO - ================================================================================
+2025-11-16 08:23:59,143 - app - INFO - VIDEO UPLOAD REQUEST
+2025-11-16 08:23:59,143 - app - INFO - ================================================================================
+2025-11-16 08:23:59,143 - app - INFO - Filename: HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 08:23:59,143 - app - INFO - Content type: video/mp4
+2025-11-16 08:23:59,143 - app - INFO - Saving to: /tmp/tmpcwa88dfo/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 08:23:59,161 - app - INFO - File size: 13.79 MB
+2025-11-16 08:23:59,184 - app - INFO - Extracted first frame: (360, 640, 3)
+2025-11-16 08:23:59,185 - app - INFO - Generated video ID: vid_1763281439185
+2025-11-16 08:23:59,193 - app - INFO - Video metadata:
+2025-11-16 08:23:59,193 - app - INFO -   - Resolution: 640x360
+2025-11-16 08:23:59,194 - app - INFO -   - FPS: 15.00
+2025-11-16 08:23:59,194 - app - INFO -   - Frames: 4485
+2025-11-16 08:23:59,194 - app - INFO -   - Duration: 299.0s
+2025-11-16 08:23:59,194 - app - INFO - ✅ Upload successful!
+2025-11-16 08:23:59,194 - app - INFO - ================================================================================
+2025-11-16 08:24:10,664 - app - INFO - ================================================================================
+2025-11-16 08:24:10,664 - app - INFO - MULTI-ZONE ANALYSIS REQUEST
+2025-11-16 08:24:10,664 - app - INFO - ================================================================================
+2025-11-16 08:24:10,664 - app - INFO - Video ID: vid_1763281439185
+2025-11-16 08:24:10,664 - app - INFO - Video path: /tmp/tmpcwa88dfo/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 08:24:10,664 - app - INFO - Request parameters:
+2025-11-16 08:24:10,664 - app - INFO -   - Number of zones: 1
+2025-11-16 08:24:10,664 - app - INFO -   - Confidence threshold: 0.4
+2025-11-16 08:24:10,664 - app - INFO -   - Min wait filter: 1.0s
+2025-11-16 08:24:10,664 - app - INFO -   - Sample stride: 40
+2025-11-16 08:24:10,664 - app - INFO -   - Zone 1: 'Zone 1' with 9 polygon points
+2025-11-16 08:24:10,672 - app - INFO - Video metadata: fps=15.00, frames=4485, duration=299.0s
+2025-11-16 08:24:10,672 - app - INFO - Starting multi-zone analysis on /tmp/tmpcwa88dfo/HD-SDI 1080P Hi Definition Megapixel Security Camera @ Super Market Checkout Sample #1.mp4
+2025-11-16 08:24:10,672 - app - INFO - Video metadata: fps=15.00, frames=4485, duration=299.0s
+2025-11-16 08:24:10,672 - app - INFO - Analyzing 1 zones: ['Zone 1']
+2025-11-16 08:24:10,672 - app - INFO - Output video will be saved to: /tmp/tmpfwrl3_1j/annotated_vid_1763281439185.mp4
+2025-11-16 08:24:10,672 - app - INFO - Config: conf=0.4, sample_stride=40, min_wait_filter=1.0s
+2025-11-16 08:24:10,672 - app - INFO - Prepared 1 polygon zones for analysis
+2025-11-16 08:24:10,679 - app - INFO - Initialized video writer: 640x360 @ 15.00 FPS
+2025-11-16 08:24:10,679 - app - INFO - Starting YOLO tracking...
+2025-11-16 08:24:12,976 - app - INFO - Processing frame 74/4485 (1.6%)
+2025-11-16 08:24:14,980 - app - INFO - Processing frame 225/4485 (5.0%)
+2025-11-16 08:24:16,984 - app - INFO - Processing frame 371/4485 (8.3%)
+2025-11-16 08:24:18,998 - app - INFO - Processing frame 517/4485 (11.5%)
+2025-11-16 08:24:21,011 - app - INFO - Processing frame 666/4485 (14.8%)
+2025-11-16 08:24:23,018 - app - INFO - Processing frame 808/4485 (18.0%)
+2025-11-16 08:24:25,018 - app - INFO - Processing frame 956/4485 (21.3%)
+2025-11-16 08:24:27,028 - app - INFO - Processing frame 1105/4485 (24.6%)
+2025-11-16 08:24:29,034 - app - INFO - Processing frame 1248/4485 (27.8%)
+2025-11-16 08:24:31,044 - app - INFO - Processing frame 1389/4485 (31.0%)
+2025-11-16 08:24:33,045 - app - INFO - Processing frame 1527/4485 (34.0%)
+2025-11-16 08:24:35,057 - app - INFO - Processing frame 1675/4485 (37.3%)
+2025-11-16 08:24:37,059 - app - INFO - Processing frame 1828/4485 (40.8%)
+2025-11-16 08:24:39,066 - app - INFO - Processing frame 1978/4485 (44.1%)
+2025-11-16 08:24:41,073 - app - INFO - Processing frame 2125/4485 (47.4%)
+2025-11-16 08:24:43,076 - app - INFO - Processing frame 2272/4485 (50.7%)
+2025-11-16 08:24:45,088 - app - INFO - Processing frame 2420/4485 (54.0%)
+2025-11-16 08:24:47,093 - app - INFO - Processing frame 2575/4485 (57.4%)
+2025-11-16 08:24:49,100 - app - INFO - Processing frame 2733/4485 (60.9%)
+2025-11-16 08:24:51,111 - app - INFO - Processing frame 2895/4485 (64.5%)
+2025-11-16 08:24:53,122 - app - INFO - Processing frame 3061/4485 (68.2%)
+2025-11-16 08:24:55,131 - app - INFO - Processing frame 3226/4485 (71.9%)
+2025-11-16 08:24:57,133 - app - INFO - Processing frame 3389/4485 (75.6%)
+2025-11-16 08:24:59,147 - app - INFO - Processing frame 3544/4485 (79.0%)
+2025-11-16 08:25:01,148 - app - INFO - Processing frame 3705/4485 (82.6%)
+2025-11-16 08:25:03,158 - app - INFO - Processing frame 3880/4485 (86.5%)
+2025-11-16 08:25:05,160 - app - INFO - Processing frame 4056/4485 (90.4%)
+2025-11-16 08:25:07,165 - app - INFO - Processing frame 4222/4485 (94.1%)
+2025-11-16 08:25:09,171 - app - INFO - Processing frame 4375/4485 (97.5%)
+2025-11-16 08:25:10,569 - app - INFO - Finished processing 4485 frames
+2025-11-16 08:25:10,569 - app - INFO - Annotated video saved to: /tmp/tmpfwrl3_1j/annotated_vid_1763281439185.mp4
+2025-11-16 08:25:10,569 - app - INFO - Tracked 12 unique people globally
+2025-11-16 08:25:10,569 - app - INFO - Global: 10 people with wait time >= 1.0s
+2025-11-16 08:25:10,569 - app - INFO - Global wait times - avg: 17.45s, min: 4.73s, max: 57.67s
+2025-11-16 08:25:10,569 - app - INFO - Global queue - avg length: 0.59, max: 3
+2025-11-16 08:25:10,569 - app - INFO - Zone 'Zone 1': 12 tracked, 10 above threshold
+2025-11-16 08:25:10,570 - app - INFO -   Wait times - avg: 17.45s, min: 4.73s, max: 57.67s
+2025-11-16 08:25:10,570 - app - INFO -   Queue length - avg: 0.59, max: 3
+2025-11-16 08:25:10,570 - app - INFO - Multi-zone analysis complete!
+2025-11-16 08:25:10,570 - app - INFO - ✅ Analysis complete!
+2025-11-16 08:25:10,570 - app - INFO - Output video saved: /tmp/tmpfwrl3_1j/annotated_vid_1763281439185.mp4
+2025-11-16 08:25:10,570 - app - INFO - Analyzed 1 zones
+2025-11-16 08:25:10,570 - app - INFO - Zone 'Zone 1' summary:
+2025-11-16 08:25:10,570 - app - INFO -   Avg wait: 17.45s
+2025-11-16 08:25:10,570 - app - INFO -   People measured: 10
+2025-11-16 08:25:10,570 - app - INFO - ================================================================================
+2025-11-16 08:25:11,676 - app - INFO - Serving output video: /tmp/tmpfwrl3_1j/annotated_vid_1763281439185.mp4
