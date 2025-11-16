@@ -380,9 +380,9 @@ return {
 
 ## 🧠 AI-Powered Recommendations
 
-### 🤖 OpenAI Integration
+### 🤖 Multi-Model AI Integration
 
-QueueAI now features **intelligent recommendations** powered by OpenAI GPT-4:
+QueueAI now features **intelligent recommendations** powered by advanced language models with cost-effective options:
 
 #### **Features:**
 - **Smart Analysis**: AI analyzes queue patterns and business metrics
@@ -390,18 +390,37 @@ QueueAI now features **intelligent recommendations** powered by OpenAI GPT-4:
 - **Business Impact**: Revenue and efficiency predictions
 - **Priority Actions**: High/medium/low priority recommendations
 - **Floating Assistant**: Quick access button in dashboard
+- **Multi-Model Support**: OpenRouter for cost optimization
 
-#### **Setup OpenAI (Optional):**
+#### **Setup Options:**
 
+**Option 1: OpenRouter (Recommended - Cost-effective):**
 ```bash
-# 1. Get API key from https://platform.openai.com/api-keys
+# 1. Get API key from https://openrouter.ai/
 # 2. Copy environment template
 cd backend
 cp .env.example .env
 
-# 3. Edit .env and add your API key:
-OPENAI_API_KEY=sk-your-actual-openai-key-here
+# 3. Edit .env and add OpenRouter configuration:
+OPENROUTER_API_KEY=sk-or-your-key-here
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
+AI_MODEL=openai/gpt-4o-mini
 ```
+
+**Option 2: Direct OpenAI:**
+```bash
+# 1. Get API key from https://platform.openai.com/api-keys
+# 2. Edit .env and add OpenAI configuration:
+OPENAI_API_KEY=sk-your-openai-key-here
+OPENAI_BASE_URL=https://api.openai.com/v1
+AI_MODEL=gpt-4o-mini
+```
+
+**Available Models:**
+- `openai/gpt-4o-mini` - Fast, cost-effective (recommended)
+- `anthropic/claude-3-haiku` - Very fast, budget-friendly  
+- `anthropic/claude-3.5-sonnet` - High quality insights
+- `meta-llama/llama-3.1-8b-instruct` - Open source, ultra-cheap
 
 #### **API Endpoints:**
 

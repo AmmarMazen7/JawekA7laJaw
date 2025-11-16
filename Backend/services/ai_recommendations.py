@@ -16,15 +16,20 @@ class OpenAIRecommendationService:
     """
     
     def __init__(self):
-        # Initialize OpenAI client with error handling
-        api_key = os.getenv("OPENAI_API_KEY")
+        # Initialize OpenRouter client (alternative to direct OpenAI)
+        api_key = os.getenv("OPENROUTER_API_KEY") or os.getenv("OPENAI_API_KEY")
+        base_url = os.getenv("OPENAI_BASE_URL", "https://openrouter.ai/api/v1")
+        
         if not api_key:
-            logger.warning("OpenAI API key not found. Set OPENAI_API_KEY environment variable.")
+            logger.warning("OpenRouter/OpenAI API key not found. Set OPENROUTER_API_KEY or OPENAI_API_KEY environment variable.")
             self.client = None
         else:
             try:
-                self.client = openai.OpenAI(api_key=api_key)
-                logger.info("OpenAI client initialized successfully")
+                self.client = openai.OpenAI(
+                    api_key=api_key,
+                    base_url=base_url
+                )
+                logger.info(f"OpenAI client initialized successfully with base URL: {base_url}")
             except Exception as e:
                 logger.error(f"Failed to initialize OpenAI client: {str(e)}")
                 self.client = None
@@ -49,9 +54,11 @@ class OpenAIRecommendationService:
             # Create the intelligent prompt
             prompt = self._create_intelligent_prompt(context)
             
-            # Get AI recommendations
+            # Get AI recommendations with model selection
+            model_name = os.getenv("AI_MODEL", "openai/gpt-4o-mini")  # Default to cost-effective model
+            
             response = self.client.chat.completions.create(
-                model="gpt-4o-mini",  # Fast and cost-effective model
+                model=model_name,  # OpenRouter supports many models: openai/gpt-4o-mini, anthropic/claude-3-haiku, etc.
                 messages=[
                     {
                         "role": "system", 
