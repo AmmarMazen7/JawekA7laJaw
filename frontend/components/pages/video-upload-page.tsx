@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react'
 import { Upload, AlertCircle, Download, Trash2, Play, Loader2 } from 'lucide-react'
 import { PolygonCanvas } from '@/components/video/polygon-canvas'
 import { ZoneAnalyticsDashboard } from '@/components/analytics/zone-analytics-dashboard'
+import { setGlobalAnalysisData } from '@/components/pages/analytics-dashboard'
+import { Progress } from '@/components/ui/progress'
 import { videoApi } from '@/lib/api-client'
 import { useToast } from '@/hooks/use-toast'
 
@@ -41,7 +43,7 @@ interface AnalysisData {
     queue_lengths: number[]
     wait_times: number[]
   }>
-  sample_frames: string[]
+  output_video_url?: string
   fps: number
   frame_count: number
   duration_sec: number
@@ -53,6 +55,8 @@ export function VideoUploadPage() {
   const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null)
   const [loading, setLoading] = useState(false)
   const [analyzing, setAnalyzing] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [progressMessage, setProgressMessage] = useState('')
   const [step, setStep] = useState<'upload' | 'drawing' | 'results'>('upload')
   const [zones, setZones] = useState<Zone[]>([])
   const [currentZone, setCurrentZone] = useState(1)
@@ -72,14 +76,31 @@ export function VideoUploadPage() {
     }
 
     setLoading(true)
+    setProgress(0)
+    setProgressMessage('Uploading video...')
     setVideoFile(file)
 
     try {
+      // Simulate upload progress
+      const uploadInterval = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 90) {
+            clearInterval(uploadInterval)
+            return 90
+          }
+          return prev + 10
+        })
+      }, 200)
+
       // Create a local blob URL for the video file (for canvas drawing)
       const localVideoUrl = URL.createObjectURL(file)
       
+      setProgressMessage('Processing video metadata...')
       // Upload to FastAPI backend
       const response = await videoApi.uploadVideo(file)
+      
+      clearInterval(uploadInterval)
+      setProgress(100)
       
       if (!response.success || !response.data) {
         throw new Error(response.error || 'Upload failed')
@@ -92,7 +113,7 @@ export function VideoUploadPage() {
 
       toast({
         title: 'Video uploaded',
-        description: `Video processed successfully (${response.data.width}x${response.data.height}, ${response.data.fps.toFixed(1)} FPS)`,
+        description: `Video processed successfully (${response.data?.width || 0}x${response.data?.height || 0}, ${response.data?.fps?.toFixed(1) || 0} FPS)`,
       })
     } catch (error) {
       console.error('Upload error:', error)
@@ -103,6 +124,8 @@ export function VideoUploadPage() {
       })
     } finally {
       setLoading(false)
+      setProgress(0)
+      setProgressMessage('')
     }
   }
 
@@ -145,6 +168,8 @@ export function VideoUploadPage() {
     }
 
     setAnalyzing(true)
+    setProgress(0)
+    setProgressMessage('Initializing analysis...')
 
     try {
       // Convert zones to the format expected by FastAPI
@@ -160,6 +185,34 @@ export function VideoUploadPage() {
       console.log('Sending zones to API:', zonesForApi)
       console.log('Zones structure:', JSON.stringify(zonesForApi, null, 2))
 
+      // Save zones to localStorage for live stream use
+      localStorage.setItem('currentZones', JSON.stringify(zonesForApi))
+      localStorage.setItem('currentVideoId', videoInfo.video_id)
+
+      // Simulate progress during analysis
+      setProgress(10)
+      setProgressMessage('Loading YOLO model...')
+      
+      // Start progress simulation
+      const progressInterval = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 85) {
+            clearInterval(progressInterval)
+            return 85
+          }
+          // Slower progress as we get further
+          if (prev < 30) return prev + 5
+          if (prev < 60) return prev + 3
+          return prev + 1
+        })
+      }, 800)
+
+      // Update progress messages
+      setTimeout(() => setProgressMessage('Running object detection...'), 2000)
+      setTimeout(() => setProgressMessage('Tracking people across zones...'), 4000)
+      setTimeout(() => setProgressMessage('Calculating wait times...'), 6000)
+      setTimeout(() => setProgressMessage('Generating annotated video...'), 8000)
+
       const response = await videoApi.analyzeMultiZone(
         videoInfo.video_id,
         zonesForApi,
@@ -170,12 +223,22 @@ export function VideoUploadPage() {
         }
       )
 
+      clearInterval(progressInterval)
+      setProgress(95)
+      setProgressMessage('Finalizing results...')
+
       if (!response.success || !response.data) {
         throw new Error(response.error || 'Analysis failed')
       }
 
+      setProgress(100)
+      setProgressMessage('Analysis complete!')
+      
       setAnalysisResults(response.data)
       setStep('results')
+      
+      // Update global analytics dashboard data
+      setGlobalAnalysisData(response.data)
 
       toast({
         title: 'Analysis complete',
@@ -190,6 +253,8 @@ export function VideoUploadPage() {
       })
     } finally {
       setAnalyzing(false)
+      setProgress(0)
+      setProgressMessage('')
     }
   }
 
@@ -199,6 +264,54 @@ export function VideoUploadPage() {
         <h1 className="text-3xl font-bold mb-2">Zone Configuration</h1>
         <p className="text-muted-foreground">Upload a video and define detection zones for queue monitoring</p>
       </div>
+
+      {/* Progress Overlay */}
+      {(loading || analyzing) && (
+        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="bg-card rounded-lg border border-border p-8 max-w-md w-full mx-4 shadow-2xl">
+            <div className="flex flex-col items-center space-y-6">
+              <div className="relative">
+                <Loader2 className="w-16 h-16 text-primary animate-spin" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-xs font-bold text-primary">{Math.round(progress)}%</span>
+                </div>
+              </div>
+              
+              <div className="w-full space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-semibold">
+                    {loading ? 'Uploading Video' : 'Analyzing Video'}
+                  </span>
+                  <span className="text-muted-foreground">{Math.round(progress)}%</span>
+                </div>
+                
+                <Progress value={progress} className="h-3" />
+                
+                {progressMessage && (
+                  <p className="text-sm text-muted-foreground text-center animate-pulse">
+                    {progressMessage}
+                  </p>
+                )}
+              </div>
+
+              <div className="text-center space-y-2">
+                <p className="text-xs text-muted-foreground">
+                  {loading ? 'Processing video metadata...' : 'This may take a few minutes depending on video length'}
+                </p>
+                {analyzing && (
+                  <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                    <div className="flex gap-1">
+                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {step === 'upload' && (
         <>

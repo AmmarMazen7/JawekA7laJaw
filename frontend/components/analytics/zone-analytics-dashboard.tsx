@@ -24,7 +24,7 @@ interface ZoneResult {
 
 interface AnalysisData {
   zones: ZoneResult[]
-  sample_frames: string[]
+  output_video_url?: string
   fps: number
   frame_count: number
   duration_sec: number
@@ -35,7 +35,7 @@ interface Props {
 }
 
 export function ZoneAnalyticsDashboard({ data }: Props) {
-  const { zones, sample_frames, fps, frame_count, duration_sec } = data
+  const { zones, output_video_url, fps, frame_count, duration_sec } = data
 
   // Calculate global metrics
   const globalMetrics = {
@@ -213,26 +213,33 @@ export function ZoneAnalyticsDashboard({ data }: Props) {
         ))}
       </div>
 
-      {/* Sample Frames */}
-      {sample_frames.length > 0 && (
+      {/* Annotated Output Video */}
+      {output_video_url && (
         <Card>
           <CardHeader>
-            <CardTitle>Annotated Sample Frames</CardTitle>
+            <CardTitle>Annotated Video Output</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {sample_frames.map((frame, idx) => (
-                <div key={idx} className="relative rounded-lg overflow-hidden border border-border">
-                  <img
-                    src={frame}
-                    alt={`Sample frame ${idx + 1}`}
-                    className="w-full h-auto"
-                  />
-                  <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
-                    Frame {idx + 1}
-                  </div>
-                </div>
-              ))}
+            <div className="space-y-4">
+              <video
+                controls
+                className="w-full rounded-lg border border-border"
+                src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}${output_video_url}`}
+              >
+                Your browser does not support the video tag.
+              </video>
+              <div className="flex gap-3">
+                <a
+                  href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}${output_video_url}`}
+                  download
+                  className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  Download Annotated Video
+                </a>
+              </div>
             </div>
           </CardContent>
         </Card>
