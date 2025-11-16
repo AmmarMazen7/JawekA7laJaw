@@ -43,20 +43,24 @@ export function FloatingAIButton({ onScrollToRecommendations, analyticsData }: F
     const fetchInstantRecommendations = async () => {
         setIsLoading(true)
         try {
-            const response = await fetch('http://localhost:8000/api/recommendations/instant')
+            // Use frontend API route instead of backend
+            const response = await fetch('/api/ai/instant')
             const data = await response.json()
 
-            if (data.success) {
-                setInstantInsight(data.instant_insight)
-                setPriorityAction(data.priority_action)
-                setAlertLevel(data.alert_level)
-                setConfidence(data.confidence)
-                setAiPowered(data.ai_powered)
+            if (data.recommendation) {
+                setInstantInsight("Real-time queue analysis")
+                setPriorityAction(data.recommendation)
+                setAlertLevel(data.alert_level || 'normal')
+                setConfidence(data.confidence || 70)
+                setAiPowered(true)
             }
         } catch (error) {
             console.error('Failed to fetch instant recommendations:', error)
             setInstantInsight("Queue monitoring active")
             setPriorityAction("Continue normal operations")
+            setAlertLevel('normal')
+            setConfidence(60)
+            setAiPowered(false)
         } finally {
             setIsLoading(false)
         }
